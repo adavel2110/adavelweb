@@ -4,8 +4,8 @@ FROM node:20-alpine AS build
 # Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar package.json y package-lock.json explícitamente
-COPY package.json package-lock.json ./
+# Copiar todos los archivos del proyecto
+COPY . .
 
 # Instalar todas las dependencias (incluyendo desarrollo para la construcción)
 RUN npm install
