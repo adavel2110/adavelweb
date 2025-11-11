@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"  # Cambiamos el puerto del host a 8080
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+
+  nginx-proxy:
+    image: nginx:alpine
+    ports:
+      - "80:80"  # El puerto 80 del host apunta al proxy
+    volumes:
+      - ./nginx-simple.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
