@@ -81,7 +81,7 @@
     
     <div class="max-w-2xl mx-auto bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 shadow-2xl rounded-xl overflow-hidden">
       <div class="p-6 sm:p-8">
-        <form class="space-y-6">
+        <form action="mailto:adavel2110@gmail.com" method="post" enctype="text/plain" class="space-y-6">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Nombre</label>
             <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700/50 text-gray-100 placeholder-gray-500">
