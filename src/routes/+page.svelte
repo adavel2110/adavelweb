@@ -67,39 +67,134 @@
   </div>
 </section>
 
+<script>
+  import { onMount } from 'svelte';
+  
+  let form;
+  let isSubmitting = false;
+  let submitSuccess = false;
+  let submitError = false;
+
+  onMount(() => {
+    form = document.querySelector('form');
+  });
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    isSubmitting = true;
+    submitSuccess = false;
+    submitError = false;
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('https://formspree.io/f/xjkjkaod', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        submitSuccess = true;
+        form.reset();
+        // Ocultar el mensaje después de 5 segundos
+        setTimeout(() => {
+          submitSuccess = false;
+        }, 5000);
+      } else {
+        throw new Error('Error al enviar el formulario');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      submitError = true;
+      // Ocultar el mensaje de error después de 5 segundos
+      setTimeout(() => {
+        submitError = false;
+      }, 5000);
+    } finally {
+      isSubmitting = false;
+    }
+  }
+</script>
+
 <!-- Sección Contacto -->
 <section id="contacto" class="py-20 bg-gray-800/30 backdrop-blur-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-2xl mx-auto text-center mb-16">
       <h2 class="text-3xl font-bold text-gray-100 sm:text-4xl mb-4">
-        Contáctanos
+        Contáctame
       </h2>
       <p class="mt-4 text-xl text-gray-400">
-        ¿Listo para comenzar tu próximo proyecto? Envíanos un mensaje.
+        ¿Listo para comenzar tu próximo proyecto? Envíame un mensaje.
       </p>
     </div>
     
     <div class="max-w-2xl mx-auto bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 shadow-2xl rounded-xl overflow-hidden">
       <div class="p-6 sm:p-8">
-        <form action="mailto:adavel2110@gmail.com" method="post" enctype="text/plain" class="space-y-6">
+        {#if submitSuccess}
+          <div class="mb-6 p-4 bg-green-900/50 border border-green-700 rounded-lg text-green-300">
+            ¡Mensaje enviado con éxito! Me pondré en contacto contigo pronto.
+          </div>
+        {:else if submitError}
+          <div class="mb-6 p-4 bg-red-900/50 border border-red-700 rounded-lg text-red-300">
+            Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.
+          </div>
+        {/if}
+
+        <form on:submit={handleSubmit} class="space-y-6">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Nombre</label>
-            <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700/50 text-gray-100 placeholder-gray-500">
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              required 
+              class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700/50 text-gray-100 placeholder-gray-500"
+              autocomplete="name"
+            >
           </div>
           
           <div>
             <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Correo electrónico</label>
-            <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700/50 text-gray-100 placeholder-gray-500">
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700/50 text-gray-100 placeholder-gray-500"
+              autocomplete="email"
+            >
           </div>
           
           <div>
             <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Mensaje</label>
-            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700/50 text-gray-100 placeholder-gray-500"></textarea>
+            <textarea 
+              id="message" 
+              name="message" 
+              rows="4" 
+              required 
+              class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700/50 text-gray-100 placeholder-gray-500"
+            ></textarea>
           </div>
           
           <div>
-            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105">
-              Enviar mensaje
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {#if isSubmitting}
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Enviando...
+              {:else}
+                Enviar mensaje
+              {/if}
             </button>
           </div>
         </form>
