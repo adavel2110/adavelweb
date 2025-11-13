@@ -23,7 +23,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <h2 class="text-3xl font-bold text-gray-100 sm:text-4xl mb-4">
-        Sobre Nosotros
+        Sobre Mi
       </h2>
       <p class="mt-4 text-xl text-gray-400">
         Conoce más sobre lo que hacemos y cómo podemos ayudarte.
@@ -115,15 +115,15 @@
       <h3 class="text-2xl font-bold text-white mb-4">Tu Proyecto Digital</h3>
       <p class="text-gray-400 mb-8">Creando experiencias digitales excepcionales</p>
       <div class="flex justify-center space-x-6 mb-8">
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-400 transition-colors duration-200">
+        <a href="https://twitter.com/adavel2110" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-400 transition-colors duration-200">
           <span class="sr-only">Twitter</span>
           <span class="text-2xl">🐦</span>
         </a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-gray-300 transition-colors duration-200">
+        <a href="https://github.com/adavel2110" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-gray-300 transition-colors duration-200">
           <span class="sr-only">GitHub</span>
           <span class="text-2xl">🐙</span>
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors duration-200">
+        <a href="https://linkedin.com/in/adavel2110" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-600 transition-colors duration-200">
           <span class="sr-only">LinkedIn</span>
           <span class="text-2xl">💼</span>
         </a>
